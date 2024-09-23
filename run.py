@@ -195,7 +195,7 @@ while True:
         
         ''' + Style.RESET_ALL)
 
-        actor_name = typingInput("\nEnter the name of the actor: ")
+        actor_name = typingInput(Fore.GREEN + ".       \nEnter the name of the actor: " + Style.RESET_ALL)
 
         if not actor_name:
             raise ValueError(Fore.RED + "Input cannot be empty." + Style.RESET_ALL)
@@ -209,12 +209,12 @@ while True:
             filmography = get_actor_filmography(actor_id)
             display_filmography(filmography)
 
-            another_search = typingInput("\nWould you like to search for another actor? (y/n)\n").lower()
+            another_search = typingInput(Fore.GREEN + "\nWould you like to search for another actor? (y/n)\n" + Style.RESET_ALL).lower()
             if another_search == 'y':
                 # Clears terminal
                 clear_Screen()
             else:
-                print("\nUntil next time, may the force be with you!\n")
+                print(Fore.YELLOW + "\nUntil next time, may the force be with you!\n" + Style.RESET_ALL)
                 # Keeps the above print statement on the terminal for 5 seconds
                 # and then clears terminal.
                 time.sleep(5.0)
