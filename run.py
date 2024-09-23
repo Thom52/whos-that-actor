@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
             actor_name = typing_input(
                 Fore.GREEN
-                + "\nEnter the name of the actor:"
+                + "\nEnter the name of the actor: "
                 + Style.RESET_ALL
             )
 
