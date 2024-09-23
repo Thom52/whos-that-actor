@@ -58,10 +58,16 @@ def display_actor_info(actor):
 
     try:
         print("\n--- Actor Information ---\n")
-        print(f"Name: {actor.get('name')}")
-        print(f"Known For: {', '.join([movie['title'] for movie in actor.get('known_for', [])])}")
-        print(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
-    
+        print(f"Name: {actor.get('name')}\n")
+
+        actor_url = f"https://www.themoviedb.org/person/{actor['id']}"
+        print(f"Profile: {actor_url}\n")
+
+        open_url = input("Would you like to open the actor's profile in your browser? (y/n)\n").lower()
+
+        if open_url == "y":
+            webbrowser.open(actor_url)
+
     except KeyError as ke:
         print(f"\nMissing actor information: {ke}\n")
     except Exception as e:
