@@ -59,9 +59,9 @@ def display_actor_info(actor):
     """
 
     try:
-        typingPrint("\n--- Actor Information ---\n")
-        typingPrint(f"\nName: {actor.get('name')}\n")
-        typingPrint(f"\nProfile: https://www.themoviedb.org/person/{actor['id']}\n")
+        typingPrint(Fore.LIGHTMAGENTA_EX + "\n--- Actor Information ---\n" + Style.RESET_ALL)
+        typingPrint(Fore.BLUE + f"\nName: {actor.get('name')}\n" + Style.RESET_ALL)
+        typingPrint(Fore.BLUE + f"\nProfile: https://www.themoviedb.org/person/{actor['id']}\n" + Style.RESET_ALL)
 
     except KeyError as ke:
         typingPrint(Fore.RED + f"\nMissing actor information: {ke}\n" + Style.RESET_ALL)
@@ -195,7 +195,7 @@ while True:
         
         ''' + Style.RESET_ALL)
 
-        actor_name = typingInput(Fore.GREEN + ".       \nEnter the name of the actor: " + Style.RESET_ALL)
+        actor_name = typingInput(Fore.GREEN + "Enter the name of the actor: " + Style.RESET_ALL)
 
         if not actor_name:
             raise ValueError(Fore.RED + "Input cannot be empty." + Style.RESET_ALL)
