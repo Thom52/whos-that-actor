@@ -91,7 +91,13 @@ def get_actor_filmography(actor_id):
         response.raise_for_status()
 
         data = response.json()
-        return (data['cast']) 
+        
+        filmography = data.get('cast', [])
+
+        filmography.sort(key=lambda movie: movie.get('release_date', '1900-01-01'))
+
+        return filmography
+
 
     except requests.exceptions.RequestException as e:
         print(f"\nError: Unable to fetch filmography due to network issues: {e}\n")
