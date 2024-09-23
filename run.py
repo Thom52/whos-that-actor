@@ -87,9 +87,13 @@ def get_actor_filmography(actor_id):
         return (data['cast']) 
 
     except requests.exceptions.RequestException as e:
-        print(f"Error: Unable to fetch filmography due to network issues: {e}")
+        print(f"\nError: Unable to fetch filmography due to network issues: {e}\n")
+    except ConnectionError as ce:
+        print(f"\nFailed to connect to the API: {ce}\n")
+    except TimeoutError as te:
+        print(f"\nAPI request timed out: {te}\n")
     except Exception as e:
-        print(f"An unexpected error occurred while fetching the filmography: {e}")
+        print(f"\nAn unexpected error occurred while fetching the filmography: {e}\n")
     return None
 
 
