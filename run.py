@@ -1,4 +1,5 @@
 import requests
+import webbrowser
 from dotenv import load_dotenv
 import os
 
@@ -120,7 +121,7 @@ def display_filmography(filmography):
         print(f"\nError while displaying filmography: {e}\n")
 
 
-
+# Main execution logic
 try:
     actor_name = input("Enter the name of the actor: ")
 
