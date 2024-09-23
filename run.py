@@ -59,8 +59,8 @@ def display_actor_info(actor):
 
     try:
         typingPrint("\n--- Actor Information ---\n")
-        typingPrint(f"Name: {actor.get('name')}\n")
-        typingPrint(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
+        typingPrint(f"\nName: {actor.get('name')}\n")
+        typingPrint(f"\nProfile: https://www.themoviedb.org/person/{actor['id']}\n")
 
     except KeyError as ke:
         typingPrint(f"\nMissing actor information: {ke}\n")
@@ -131,12 +131,12 @@ def display_filmography(filmography):
                 title = movie.get('title')
                 release_date = movie.get('release_date', 'N/A')
                 character = movie.get('character', 'N/A')
-                typingPrint(f"{title} ({release_date}) - Character: {character}\n")
+                typingPrint(f"\n{title} ({release_date}) - Character: {character}\n")
 
             begin += 10
 
             if begin < all_films:
-                more = typingInput("Would you like to see the next 10 films? (y/n)\n").lower()
+                more = typingInput("\nWould you like to see the next 10 films? (y/n)\n").lower()
                 if more != 'y':
                     break
 
@@ -144,20 +144,21 @@ def display_filmography(filmography):
         typingPrint(f"\nError while displaying filmography: {e}\n")
 
 
+
 # Functions to create a typing effect in the terminal which replaces the
-# typingPrint() and input() functions.
+# print() and input() functions where desired.
 # Code adapted from: https://www.101computing.net/python-typing-text-effect/
 def typingPrint(text):
   for character in text:
     sys.stdout.write(character)
     sys.stdout.flush()
-    time.sleep(0.01)
+    time.sleep(0.015)
   
 def typingInput(text):
   for character in text:
     sys.stdout.write(character)
     sys.stdout.flush()
-    time.sleep(0.05)
+    time.sleep(0.035)
   value = input()  
   return value
 
@@ -201,7 +202,9 @@ while True:
                 clear_Screen()
             else:
                 print("\nUntil next time, may the force be with you!\n")
-                # Clears terminal
+                # Keeps the above print statement on the terminal for 5 seconds
+                # and then clears terminal.
+                time.sleep(5.0)
                 clear_Screen()
                 break 
 
