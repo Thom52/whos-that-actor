@@ -1,9 +1,10 @@
 import requests
-from dotenv import load_dotenv
 import os
 import time
 import sys
-import colorama
+
+from dotenv import load_dotenv
+from colorama import init, Fore, Style
 
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
@@ -12,7 +13,6 @@ if not api_key:
     raise ValueError("\nAPI key not found. Make sure it's set in the environment.\n")
 
 BASE_URL = 'https://api.themoviedb.org/3'
-
 
 
 def search_actor(actor_name):
@@ -34,20 +34,20 @@ def search_actor(actor_name):
         data = response.json()
 
         if data['total_results'] == 0:
-            typingPrint(f"\nActor '{actor_name}' cannot be not found.\n")
+            typingPrint(Fore.RED + f"\nActor '{actor_name}' cannot be not found.\n" + Style.RESET_ALL)
             return None
 
         actor = data['results'][0]
         return actor
     
     except requests.exceptions.RequestException as e:
-        typingPrint(f"\nError: Unable to fetch data due to network issues: {e}\n")
+        typingPrint(Fore.RED + f"\nError: Unable to fetch data due to network issues: {e}\n")
     except ConnectionError as ce:
-        typingPrint(f"\nFailed to connect to the API: {ce}\n")
+        typingPrint(Fore.RED + f"\nFailed to connect to the API: {ce}\n" + Style.RESET_ALL)
     except TimeoutError as te:
-        typingPrint(f"\nAPI request timed out: {te}\n")
+        typingPrint(Fore.RED + f"\nAPI request timed out: {te}\n" + Style.RESET_ALL)
     except Exception as e:
-        typingPrint(f"\nAn error occurred during actor search: {e}\n")
+        typingPrint(Fore.RED + f"\nAn error occurred during actor search: {e}\n" + Style.RESET_ALL)
     return None
 
 
@@ -64,9 +64,9 @@ def display_actor_info(actor):
         typingPrint(f"\nProfile: https://www.themoviedb.org/person/{actor['id']}\n")
 
     except KeyError as ke:
-        typingPrint(f"\nMissing actor information: {ke}\n")
+        typingPrint(Fore.RED + f"\nMissing actor information: {ke}\n" + Style.RESET_ALL)
     except Exception as e:
-        typingPrint(f"\nError while displaying actor information: {e}\n")
+        typingPrint(Fore.RED + f"\nError while displaying actor information: {e}\n" + Style.RESET_ALL)
 
 
 
@@ -98,13 +98,13 @@ def get_actor_filmography(actor_id):
 
 
     except requests.exceptions.RequestException as e:
-        typingPrint(f"\nError: Unable to fetch filmography due to network issues: {e}\n")
+        typingPrint(Fore.RED + f"\nError: Unable to fetch filmography due to network issues: {e}\n" + Style.RESET_ALL)
     except ConnectionError as ce:
-        typingPrint(f"\nFailed to connect to the API: {ce}\n")
+        typingPrint(Fore.RED + f"\nFailed to connect to the API: {ce}\n" + Style.RESET_ALL)
     except TimeoutError as te:
-        typingPrint(f"\nAPI request timed out: {te}\n")
+        typingPrint(Fore.RED + f"\nAPI request timed out: {te}\n" + Style.RESET_ALL)
     except Exception as e:
-        typingPrint(f"\nAn unexpected error occurred while fetching the filmography: {e}\n")
+        typingPrint(Fore.RED + f"\nAn unexpected error occurred while fetching the filmography: {e}\n" + Style.RESET_ALL)
     return None
 
 
@@ -117,7 +117,7 @@ def display_filmography(filmography):
 
     try:
         if not filmography:
-            typingPrint("No filmography found.")
+            typingPrint(Fore.RED + "\nNo filmography found.\n" + Style.RESET_ALL)
             return
 
         # A while loop to loop through the filmography data and display it in
@@ -142,7 +142,7 @@ def display_filmography(filmography):
                     break
 
     except Exception as e:
-        typingPrint(f"\nError while displaying filmography: {e}\n")
+        typingPrint(Fore.RED + f"\nError while displaying filmography: {e}\n" + Style.RESET_ALL)
 
 
 
@@ -154,13 +154,14 @@ def typingPrint(text):
     sys.stdout.write(character)
     sys.stdout.flush()
     time.sleep(0.015)
-  
+print()
+
 def typingInput(text):
   for character in text:
     sys.stdout.write(character)
     sys.stdout.flush()
     time.sleep(0.035)
-  value = input()  
+  value = input() 
   return value
 
 
@@ -186,7 +187,7 @@ while True:
         actor_name = typingInput("\nEnter the name of the actor: ")
 
         if not actor_name:
-            raise ValueError("Input cannot be empty.")
+            raise ValueError(Fore.RED + "Input cannot be empty." + Style.RESET_ALL)
 
         actor = search_actor(actor_name)
 
@@ -209,6 +210,8 @@ while True:
                 clear_Screen()
                 break 
 
-
+    except KeyboardInterrupt:
+        typingPrint(Fore.RED + "\n\nProgram interrupted by user. Exiting gracefully, like tears in the rain...\n\n" + Style.RESET_ALL)
+        break
     except Exception as e:
-        print(f"\nAn unexpected error occurred in the main program: {e}\n")
+        print(Fore.RED + f"\nAn unexpected error occurred in the main program: {e}\n" + Style.RESET_ALL)
