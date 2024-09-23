@@ -94,7 +94,7 @@ def get_actor_filmography(actor_id):
         
         filmography = data.get('cast', [])
 
-        filmography.sort(key=lambda movie: movie.get('release_date', '1900-01-01'))
+        filmography.sort(key=lambda movie: movie.get('release_date', '1900-01-01'), reverse=True)
 
         return filmography
 
