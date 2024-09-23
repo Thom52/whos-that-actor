@@ -11,6 +11,7 @@ if not api_key:
 BASE_URL = 'https://api.themoviedb.org/3'
 
 
+
 def search_actor(actor_name):
     """
     Search TMDB for the value given in the input.
@@ -43,5 +44,21 @@ def search_actor(actor_name):
     return None
 
 
+
+def display_actor_info(actor):
+    """
+    Fetch and display the basic information about the actor retrieved from TMDB.
+    """
+
+    try:
+        print("\n--- Actor Information ---\n")
+        print(f"Name: {actor.get('name')}")
+        print(f"Known For: {', '.join([movie['title'] for movie in actor.get('known_for', [])])}")
+        print(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
+    except Exception as e:
+        print(f"Error while displaying actor information: {e}")
+
+
 actor_name = input("Enter the name of the actor: ")
 actor = search_actor(actor_name)
+display_actor_info(actor)
