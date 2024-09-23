@@ -15,7 +15,7 @@ BASE_URL = 'https://api.themoviedb.org/3'
 def search_actor(actor_name):
     """
     Search TMDB for the value given in the input.
-    try and except statement to catch any errors.
+    Try and except statement to catch any errors.
     """
     
     try:
@@ -47,7 +47,8 @@ def search_actor(actor_name):
 
 def display_actor_info(actor):
     """
-    Fetch and display the basic information about the actor retrieved from TMDB.
+    Display the basic information about the actor retrieved from TMDB
+    from the search_actor function.
     """
 
     try:
@@ -62,7 +63,8 @@ def display_actor_info(actor):
 
 def get_actor_filmography(actor_id):
     """
-    Fetch and display the filmography of the actor using their TMDB ID.
+    Search for the filmography of the actor using their TMDB ID.
+    Try and except statement to catch any errors.
     """
 
     try:
