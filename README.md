@@ -1,10 +1,10 @@
 
-<p align="center"><img src="/assets/images/responsive.png" alt="drawing" width="800"/></p>
+<p align="center"><img src="documentation/main-img.png" alt="main image" width="800"/></p>
 
 
 
 # Who's That Actor?!
-### Project Description - Have you ever been watching a movie and for the life of you couldn't remember what movie you saw this actor in? Well, 'with Who's That Actor?!' say goodbye to your frustration. 
+### Project Description - Have you ever been watching a movie and for the life of you couldn't remember what movie you saw this actor in? Well, with 'Who's That Actor?!' say goodbye to your frustration. 
 
 ### With this program, quickly search for the actor's name and breathe a sigh of relief as it displays all the movies they have appeared in!
 
@@ -21,7 +21,7 @@
 
 **Logo**
 
-  - A large logo displaying the name of the program done via ASCII text.
+  - A large logo displaying the name of the program, done via ASCII text.
 
   <details><summary>Logo Screenshot</summary>
 
@@ -37,7 +37,7 @@
 
   <details><summary>User's Input Screenshot</summary>
 
-  <p align="center"><img src="documentation/user-input.png" alt="drawing" width="600"/></p>
+  <p align="center"><img src="documentation/user-input.png" alt="user input function" width="600"/></p>
 
   </details>
 
@@ -49,7 +49,7 @@
 
   <details><summary>Actor Information Screenshot</summary>
 
-  <p align="center"><img src="documentation/actor-info.png" alt="drawing" width="600"/></p>
+  <p align="center"><img src="documentation/actor-info.png" alt="actor information heading" width="600"/></p>
 
   </details>
 
@@ -61,7 +61,7 @@
 
   <details><summary>Filmography Screenshot</summary>
 
-  <p align="center"><img src="documentation/filmography.png" alt="drawing" width="600"/></p>
+  <p align="center"><img src="documentation/filmography.png" alt="filmography heading" width="600"/></p>
 
   </details>
 
@@ -84,9 +84,9 @@ While the current version of the project is fully functional, we have some excit
 
 |  Feature |  Action | Effect |
 |---|---|---|
-|User Input|Type into input function|Types out onto the terminal as you type|
+|User Input|Type into input function|Types out onto the terminal as you type.|
 |User Input|Press enter with a correct value|Store and executes the value with the main logic.|
-|User Input|Press enter with an incorrect value|Throws up an error message|
+|User Input|Press enter with an incorrect value|Throws up an error message.|
 
 
 <hr>
@@ -100,12 +100,12 @@ While the current version of the project is fully functional, we have some excit
 - Python code came out the checker with no errors.
 
 **Details**
-- Before putting it through the checker I ran the flake8 Python tool to detail formatting and code based errors which showed me formatting errors such as whitespace, and lines breaking the 79 word limit.
+- Before putting it through the checker I ran the flake8 Python tool to detail formatting and code based errors which showed me formatting errors such as whitespace and lines breaking the 79 word limit.
 -  I also used the black Python tool to format my code.
 
 **Visuals**
 
-<p align="center"><img src="documentation/pep8.png" alt="drawing" width="800"/></p>
+<p align="center"><img src="documentation/pep8.png" alt="pep8 validator" width="800"/></p>
 
 <hr>
  
@@ -113,26 +113,25 @@ While the current version of the project is fully functional, we have some excit
 #### Bugs Resolved
 
 
-**Introduction**
-This section provides a summary of bugs that have been identified, reported, and subsequently resolved in Who's That Actor?!.
+This section provides a summary of a bug that have been identified, reported, and subsequently resolved in Who's That Actor?!.
 
-Below is a summary of resolved bug:
+Below is a summary of the resolved bug:
 
 | Bug ID | Bug Description | Status |
 |--------|-----------------|--------|
-| #001   | - Attempted to use the webbrowser module to allow users to click on the actor's profile link and have it open in their browser. However, after installing and executing it, it wasn't working on my deployed heroku app. Eventually found out that heroku doesn't work with this module so had to remove that feature.| Resolved |
+| #001   | - Attempted to use the webbrowser module which would ask the users if they would like the actor's TMDB profile to open up in their browser. However, after installing and executing it, I found it wasn't working on my deployed heroku app. After chekcing Heroku documentation and searching stack overflow, I eventually found out that heroku doesn't work with this module so had to remove that feature.| Resolved |
 
 **Images**: 
 
 <details><summary>Bug Screenshot 1 (Gitpod Terminal)</summary>
 
-  <p align="center"><img src="documentation/webbrowser-bug-t.png" alt="drawing" width="600"/></p>
+  <p align="center"><img src="documentation/webbrowser-bug-t.png" alt="code bug image 1" width="600"/></p>
 
   </details>
 
 <details><summary>Bug Screenshot 2 (Heroku App)</summary>
 
-  <p align="center"><img src="documentation/webbrowser-bug-h.png" alt="drawing" width="600"/></p>
+  <p align="center"><img src="documentation/webbrowser-bug-h.png" alt="code bug image 2" width="600"/></p>
 
   </details>
 
@@ -146,6 +145,7 @@ Below is a summary of resolved bug:
 - The site was deployed using Heroku pages. Using Code Institute's Git repository as its base, the steps are as follows:
   - Create a new Heroku App.
   - Set the config vars to hide my API, and the PORT that Code Institute recommended.
+  - Download the Python and Node buildpacks.
   - Linked the Heroku app to the repository.
   - Set it to automatic deployment.
 
@@ -165,7 +165,7 @@ The live link can be found here - https://whos-that-actor-054db717adce.herokuapp
 
 [flake8](https://pypi.org/project/flake8/) - used to check for pep8 formatting issues.
 
-[os](https://docs.python.org/3/library/os.html) - used to clear the screen when switching between menus or views.
+[os](https://docs.python.org/3/library/os.html) - used to clear the screen after certain inputs.
 
 [PEP8](https://pep8ci.herokuapp.com/) - was used to validate the Python code.
 
@@ -175,6 +175,6 @@ The live link can be found here - https://whos-that-actor-054db717adce.herokuapp
 
 [ASCII](https://manytools.org/hacker-tools/ascii-banner/) - used to create a logo for the program.
 
-[Typing-effect](https://www.101computing.net/python-typing-text-effect/) - code from this site adapted to my project to create a typing effect in the terminal.
+[Typing-effect](https://www.101computing.net/python-typing-text-effect/) - code from this site was adapted to my project to create a typing effect in the terminal.
 
 [TMDB](https://www.themoviedb.org/) - the website that my project searches through for the result of the user's input. Used an API from this website to achieve it.
