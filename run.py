@@ -31,12 +31,12 @@ def search_actor(actor_name):
         data = response.json()
 
         if data['total_results'] == 0:
-            print(f"No actor found with the name '{actor_name}'.")
+            print(f"\nActor '{actor_name}' cannot be not found.\n")
             return None
 
         actor = data['results'][0]
         return actor
-
+    
     except requests.exceptions.RequestException as e:
         print(f"Error: Unable to fetch data due to network issues: {e}")
     except Exception as e:
@@ -113,6 +113,9 @@ def display_filmography(filmography):
 try:
     actor_name = input("Enter the name of the actor: ")
 
+    if not actor_name:
+        raise ValueError("Input cannot be empty.")
+
     actor = search_actor(actor_name)
 
     if actor:
@@ -123,4 +126,4 @@ try:
         display_filmography(filmography)
 
 except Exception as e:
-    print(f"An unexpected error occurred in the main program: {e}")
+    print(f"\nAn unexpected error occurred in the main program: {e}\n")
