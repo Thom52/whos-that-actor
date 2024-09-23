@@ -142,11 +142,22 @@ def display_filmography(filmography):
         print(f"\nError while displaying filmography: {e}\n")
 
 
+def clear_screen():
+    # Clear the terminal based on the operating system
+    if os.name == 'nt':  # For Windows
+        os.system('cls')
+    else:  # For Linux and macOS
+        os.system('clear')
+
+
 # Main execution logic
 
+# Loops the logic until a correct input is searched,
+# and allows the user to keep searching for new actors until
+# until they prompt to leave.
 while True:
     try:
-        actor_name = input("Enter the name of the actor: ")
+        actor_name = input("\nEnter the name of the actor: ")
 
         if not actor_name:
             raise ValueError("Input cannot be empty.")
@@ -160,9 +171,12 @@ while True:
             filmography = get_actor_filmography(actor_id)
             display_filmography(filmography)
 
-            another_search = input("Would you like to search for another actor? (y/n)\n").lower()
-            if another_search != 'y':
-                print("Until next time, may the force be with you!")
+            another_search = input("\nWould you like to search for another actor? (y/n)\n").lower()
+            if another_search == 'y':
+                clear_screen()
+            else:
+                print("\nUntil next time, may the force be with you!\n")
+                clear_screen()
                 break 
 
 
