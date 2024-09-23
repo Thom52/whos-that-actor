@@ -1,24 +1,22 @@
 import requests
 import os
-import time
 
 from dotenv import load_dotenv
 from colorama import Fore, Style
-from utils import clear_screen, typing_input, typing_print
+from utils import typing_input, typing_print
 
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
 
 if not api_key:
-    raise ValueError("\nAPI key not found. Make sure it's set in the environment.\n")
+    raise ValueError("\nAPI not found. Make sure it's in the environment.\n")
 
 BASE_URL = "https://api.themoviedb.org/3"
 
 
-
 def search_actor(actor_name):
     """
-    Search TMDB for an actor and only returns the first occurence from a list of actors
+    Search TMDB for an actor, only returns first occurence from list of actors
     """
 
     try:
@@ -43,14 +41,20 @@ def search_actor(actor_name):
 
     except requests.exceptions.RequestException as e:
         typing_print(
-            Fore.RED + f"\nError: Unable to fetch data due to network issues: {e}\n"
+            Fore.RED + f"\nError: Unable to fetch data - network issues: {e}\n"
         )
     except ConnectionError as ce:
         typing_print(
-            Fore.RED + f"\nFailed to connect to the API: {ce}\n" + Style.RESET_ALL
+            Fore.RED
+            + f"\nFailed to connect to the API: {ce}\n"
+            + Style.RESET_ALL
         )
     except TimeoutError as te:
-        typing_print(Fore.RED + f"\nAPI request timed out: {te}\n" + Style.RESET_ALL)
+        typing_print(
+            Fore.RED
+            + f"\nAPI request timed out: {te}\n"
+            + Style.RESET_ALL
+        )
     except Exception as e:
         typing_print(
             Fore.RED
@@ -67,9 +71,15 @@ def display_actor_info(actor):
 
     try:
         typing_print(
-            Fore.LIGHTMAGENTA_EX + "\n--- Actor Information ---\n" + Style.RESET_ALL
+            Fore.LIGHTMAGENTA_EX
+            + "\n--- Actor Information ---\n"
+            + Style.RESET_ALL
         )
-        typing_print(Fore.BLUE + f"\nName: {actor.get('name')}\n" + Style.RESET_ALL)
+        typing_print(
+            Fore.BLUE
+            + f"\nName: {actor.get('name')}\n"
+            + Style.RESET_ALL
+        )
         typing_print(
             Fore.BLUE
             + f"\nProfile: https://www.themoviedb.org/person/{actor['id']}\n"
@@ -104,11 +114,13 @@ def get_actor_filmography(actor_id):
 
         filmography = data.get("cast", [])
 
-        # Grabs filmography data and sorts it to display it in newest to oldest order.
-        # 1900-01-01 is to make sure any movies without a date are displayed at bottom
-        # of the list without causing any errors.
+        # Grabs filmography data and sorts it
+        # to display it in newest to oldest order.
+        # 1900-01-01 is to make sure any movies without a date
+        # are displayed at bottom of the list without causing any errors.
         filmography.sort(
-            key=lambda movie: movie.get("release_date", "1900-01-01"), reverse=True
+            key=lambda movie:
+            movie.get("release_date", "1900-01-01"), reverse=True
         )
 
         return filmography
@@ -116,19 +128,26 @@ def get_actor_filmography(actor_id):
     except requests.exceptions.RequestException as e:
         typing_print(
             Fore.RED
-            + f"\nError: Unable to fetch filmography due to network issues: {e}\n"
+            + f"\nError: Unable to fetch filmography - network issues: {e}\n"
             + Style.RESET_ALL
         )
+
     except ConnectionError as ce:
         typing_print(
-            Fore.RED + f"\nFailed to connect to the API: {ce}\n" + Style.RESET_ALL
+            Fore.RED
+            + f"\nFailed to connect to the API: {ce}\n"
+            + Style.RESET_ALL
         )
+
     except TimeoutError as te:
-        typing_print(Fore.RED + f"\nAPI request timed out: {te}\n" + Style.RESET_ALL)
+        typing_print(
+            Fore.RED
+            + f"\nAPI request timed out: {te}\n"
+            + Style.RESET_ALL)
     except Exception as e:
         typing_print(
             Fore.RED
-            + f"\nAn unexpected error occurred while fetching the filmography: {e}\n"
+            + f"\nUnexpected error occurred while fetching filmography: {e}\n"
             + Style.RESET_ALL
         )
     return None
@@ -141,7 +160,11 @@ def display_filmography(filmography):
 
     try:
         if not filmography:
-            typing_print(Fore.RED + "\nNo filmography found.\n" + Style.RESET_ALL)
+            typing_print(
+                Fore.RED
+                + "\nNo filmography found.\n"
+                + Style.RESET_ALL
+            )
             return
 
         # A while loop to loop through the filmography data and display it in
@@ -152,7 +175,9 @@ def display_filmography(filmography):
         while begin < all_films:
             finish = min(begin + 10, all_films)
             typing_print(
-                Fore.LIGHTMAGENTA_EX + "\n--- Filmography ---\n" + Style.RESET_ALL
+                Fore.LIGHTMAGENTA_EX
+                + "\n--- Filmography ---\n"
+                + Style.RESET_ALL
             )
             for movie in filmography[begin:finish]:
                 title = movie.get("title")
@@ -177,6 +202,7 @@ def display_filmography(filmography):
 
     except Exception as e:
         typing_print(
-            Fore.RED + f"\nError while displaying filmography: {e}\n" + Style.RESET_ALL
+            Fore.RED
+            + f"\nError while displaying filmography: {e}\n"
+            + Style.RESET_ALL
         )
-

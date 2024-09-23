@@ -2,6 +2,7 @@ import sys
 import os
 import time
 
+
 # Functions to create a typing effect in the terminal which replaces the
 # print() and input() functions where desired.
 # Code adapted from: https://www.101computing.net/python-typing-text-effect/
@@ -10,6 +11,8 @@ def typing_print(text):
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.015)
+
+
 print()
 
 
@@ -29,4 +32,3 @@ def clear_screen():
         os.system("cls")
     else:  # For Linux and macOS
         os.system("clear")
-
