@@ -59,6 +59,32 @@ def display_actor_info(actor):
         print(f"Error while displaying actor information: {e}")
 
 
+
+def get_actor_filmography(actor_id):
+    """
+    Fetch and display the filmography of the actor using their TMDB ID.
+    """
+
+    try:
+        filmography_url = f"{BASE_URL}/person/{actor_id}/movie_credits"
+        film_params = {
+            'api_key': api_key
+        }
+
+        response = requests.get(filmography_url, params=film_params)
+        response.raise_for_status()
+
+        data = response.json()
+        return (data['cast']) 
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: Unable to fetch filmography due to network issues: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred while fetching the filmography: {e}")
+    return None
+
+
+
 actor_name = input("Enter the name of the actor: ")
 actor = search_actor(actor_name)
 display_actor_info(actor)
