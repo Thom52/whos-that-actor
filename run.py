@@ -1,6 +1,8 @@
 import requests
 from dotenv import load_dotenv
 import os
+import time
+import sys
 
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
@@ -31,20 +33,20 @@ def search_actor(actor_name):
         data = response.json()
 
         if data['total_results'] == 0:
-            print(f"\nActor '{actor_name}' cannot be not found.\n")
+            typingPrint(f"\nActor '{actor_name}' cannot be not found.\n")
             return None
 
         actor = data['results'][0]
         return actor
     
     except requests.exceptions.RequestException as e:
-        print(f"\nError: Unable to fetch data due to network issues: {e}\n")
+        typingPrint(f"\nError: Unable to fetch data due to network issues: {e}\n")
     except ConnectionError as ce:
-        print(f"\nFailed to connect to the API: {ce}\n")
+        typingPrint(f"\nFailed to connect to the API: {ce}\n")
     except TimeoutError as te:
-        print(f"\nAPI request timed out: {te}\n")
+        typingPrint(f"\nAPI request timed out: {te}\n")
     except Exception as e:
-        print(f"\nAn error occurred during actor search: {e}\n")
+        typingPrint(f"\nAn error occurred during actor search: {e}\n")
     return None
 
 
@@ -56,14 +58,14 @@ def display_actor_info(actor):
     """
 
     try:
-        print("\n--- Actor Information ---\n")
-        print(f"Name: {actor.get('name')}\n")
-        print(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
+        typingPrint("\n--- Actor Information ---\n")
+        typingPrint(f"Name: {actor.get('name')}\n")
+        typingPrint(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
 
     except KeyError as ke:
-        print(f"\nMissing actor information: {ke}\n")
+        typingPrint(f"\nMissing actor information: {ke}\n")
     except Exception as e:
-        print(f"\nError while displaying actor information: {e}\n")
+        typingPrint(f"\nError while displaying actor information: {e}\n")
 
 
 
@@ -95,13 +97,13 @@ def get_actor_filmography(actor_id):
 
 
     except requests.exceptions.RequestException as e:
-        print(f"\nError: Unable to fetch filmography due to network issues: {e}\n")
+        typingPrint(f"\nError: Unable to fetch filmography due to network issues: {e}\n")
     except ConnectionError as ce:
-        print(f"\nFailed to connect to the API: {ce}\n")
+        typingPrint(f"\nFailed to connect to the API: {ce}\n")
     except TimeoutError as te:
-        print(f"\nAPI request timed out: {te}\n")
+        typingPrint(f"\nAPI request timed out: {te}\n")
     except Exception as e:
-        print(f"\nAn unexpected error occurred while fetching the filmography: {e}\n")
+        typingPrint(f"\nAn unexpected error occurred while fetching the filmography: {e}\n")
     return None
 
 
@@ -114,7 +116,7 @@ def display_filmography(filmography):
 
     try:
         if not filmography:
-            print("No filmography found.")
+            typingPrint("No filmography found.")
             return
 
         # A while loop to loop through the filmography data and display it in
@@ -124,25 +126,46 @@ def display_filmography(filmography):
         begin = 0
         while begin < all_films:
             finish = min(begin + 10, all_films)
-            print("\n--- Filmography ---\n")
+            typingPrint("\n--- Filmography ---\n")
             for movie in filmography[begin:finish]:
                 title = movie.get('title')
                 release_date = movie.get('release_date', 'N/A')
                 character = movie.get('character', 'N/A')
-                print(f"{title} ({release_date}) - Character: {character}\n")
+                typingPrint(f"{title} ({release_date}) - Character: {character}\n")
 
             begin += 10
 
             if begin < all_films:
-                more = input("Would you like to see the next 10 films? (y/n)\n").lower()
+                more = typingInput("Would you like to see the next 10 films? (y/n)\n").lower()
                 if more != 'y':
                     break
 
     except Exception as e:
-        print(f"\nError while displaying filmography: {e}\n")
+        typingPrint(f"\nError while displaying filmography: {e}\n")
 
 
-def clear_screen():
+# Functions to create a typing effect in the terminal which replaces the
+# typingPrint() and input() functions.
+# Code adapted from: https://www.101computing.net/python-typing-text-effect/
+def typingPrint(text):
+  for character in text:
+    sys.stdout.write(character)
+    sys.stdout.flush()
+    time.sleep(0.01)
+  
+def typingInput(text):
+  for character in text:
+    sys.stdout.write(character)
+    sys.stdout.flush()
+    time.sleep(0.05)
+  value = input()  
+  return value
+
+
+
+# Uses os to clear terminal when conditions met.
+# Code apadated from: https://www.101computing.net/python-typing-text-effect/
+def clear_Screen():
     # Clear the terminal based on the operating system
     if os.name == 'nt':  # For Windows
         os.system('cls')
@@ -150,14 +173,15 @@ def clear_screen():
         os.system('clear')
 
 
+
 # Main execution logic
 
 # Loops the logic until a correct input is searched,
-# and allows the user to keep searching for new actors until
+# and allows the user to keep searching for new actors
 # until they prompt to leave.
 while True:
     try:
-        actor_name = input("\nEnter the name of the actor: ")
+        actor_name = typingInput("\nEnter the name of the actor: ")
 
         if not actor_name:
             raise ValueError("Input cannot be empty.")
@@ -171,12 +195,14 @@ while True:
             filmography = get_actor_filmography(actor_id)
             display_filmography(filmography)
 
-            another_search = input("\nWould you like to search for another actor? (y/n)\n").lower()
+            another_search = typingInput("\nWould you like to search for another actor? (y/n)\n").lower()
             if another_search == 'y':
-                clear_screen()
+                # Clears terminal
+                clear_Screen()
             else:
                 print("\nUntil next time, may the force be with you!\n")
-                clear_screen()
+                # Clears terminal
+                clear_Screen()
                 break 
 
 
