@@ -63,8 +63,10 @@ def display_actor_info(actor):
         actor_url = f"https://www.themoviedb.org/person/{actor['id']}"
         print(f"Profile: {actor_url}\n")
 
+        # Asks user if they want to open actor's profile in their browser
         open_url = input("Would you like to open the actor's profile in your browser? (y/n)\n").lower()
 
+        # Webbrowser module executing off result of the code above
         if open_url == "y":
             webbrowser.open(actor_url)
 
@@ -94,6 +96,9 @@ def get_actor_filmography(actor_id):
         
         filmography = data.get('cast', [])
 
+        # Grabs filmography data and sorts it to display it in newest to oldest order.
+        # 1900-01-01 is to make sure any movies without a date are displayed at bottom
+        # of the list without causing any errors.
         filmography.sort(key=lambda movie: movie.get('release_date', '1900-01-01'), reverse=True)
 
         return filmography
@@ -122,6 +127,9 @@ def display_filmography(filmography):
             print("No filmography found.")
             return
 
+        # A while loop to loop through the filmography data and display it in
+        # groups od 10. Then asks the user if they would like the next 10 
+        # films to be displayed.
         all_films = len(filmography)
         begin = 0
         while begin < all_films:
