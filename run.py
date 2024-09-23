@@ -110,9 +110,17 @@ def display_filmography(filmography):
 
 
 
-actor_name = input("Enter the name of the actor: ")
-actor = search_actor(actor_name)
-display_actor_info(actor)
-actor_id = actor['id']
-filmography = get_actor_filmography(actor_id)
-display_filmography(filmography)
+try:
+    actor_name = input("Enter the name of the actor: ")
+
+    actor = search_actor(actor_name)
+
+    if actor:
+        display_actor_info(actor)
+
+        actor_id = actor['id']
+        filmography = get_actor_filmography(actor_id)
+        display_filmography(filmography)
+
+except Exception as e:
+    print(f"An unexpected error occurred in the main program: {e}")
