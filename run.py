@@ -143,20 +143,28 @@ def display_filmography(filmography):
 
 
 # Main execution logic
-try:
-    actor_name = input("Enter the name of the actor: ")
 
-    if not actor_name:
-        raise ValueError("Input cannot be empty.")
+while True:
+    try:
+        actor_name = input("Enter the name of the actor: ")
 
-    actor = search_actor(actor_name)
+        if not actor_name:
+            raise ValueError("Input cannot be empty.")
 
-    if actor:
-        display_actor_info(actor)
+        actor = search_actor(actor_name)
 
-        actor_id = actor['id']
-        filmography = get_actor_filmography(actor_id)
-        display_filmography(filmography)
+        if actor:
+            display_actor_info(actor)
 
-except Exception as e:
-    print(f"\nAn unexpected error occurred in the main program: {e}\n")
+            actor_id = actor['id']
+            filmography = get_actor_filmography(actor_id)
+            display_filmography(filmography)
+
+            another_search = input("Would you like to search for another actor? (y/n)\n").lower()
+            if another_search != 'y':
+                print("Until next time, may the force be with you!")
+                break 
+
+
+    except Exception as e:
+        print(f"\nAn unexpected error occurred in the main program: {e}\n")
