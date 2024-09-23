@@ -210,8 +210,11 @@ while True:
                 clear_Screen()
                 break 
 
+    # KeyboardInterrupt exception to leave program when executed.
     except KeyboardInterrupt:
         typingPrint(Fore.RED + "\n\nProgram interrupted by user. Exiting gracefully, like tears in the rain...\n\n" + Style.RESET_ALL)
+        time.sleep(3.0)
+        clear_Screen()
         break
     except Exception as e:
         print(Fore.RED + f"\nAn unexpected error occurred in the main program: {e}\n" + Style.RESET_ALL)
