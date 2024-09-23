@@ -2,9 +2,11 @@ import requests
 import os
 import time
 import sys
+import colorama
 
 from dotenv import load_dotenv
-from colorama import init, Fore, Style
+from colorama import Fore, Style
+
 
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
@@ -127,17 +129,17 @@ def display_filmography(filmography):
         begin = 0
         while begin < all_films:
             finish = min(begin + 10, all_films)
-            typingPrint("\n--- Filmography ---\n")
+            typingPrint(Fore.LIGHTMAGENTA_EX + "\n--- Filmography ---\n" + Style.RESET_ALL)
             for movie in filmography[begin:finish]:
                 title = movie.get('title')
                 release_date = movie.get('release_date', 'N/A')
                 character = movie.get('character', 'N/A')
-                typingPrint(f"\n{title} ({release_date}) - Character: {character}\n")
+                typingPrint(Fore.BLUE + f"\n{title} ({release_date}) - Character: {character}\n" + Style.RESET_ALL)
 
             begin += 10
 
             if begin < all_films:
-                more = typingInput("\nWould you like to see the next 10 films? (y/n)\n").lower()
+                more = typingInput(Fore.GREEN + "\nWould you like to see the next 10 films? (y/n) " + Style.RESET_ALL).lower()
                 if more != 'y':
                     break
 
@@ -161,8 +163,7 @@ def typingInput(text):
     sys.stdout.write(character)
     sys.stdout.flush()
     time.sleep(0.035)
-  value = input() 
-  return value
+  return input()
 
 
 
@@ -209,7 +210,7 @@ while True:
             filmography = get_actor_filmography(actor_id)
             display_filmography(filmography)
 
-            another_search = typingInput(Fore.GREEN + "\nWould you like to search for another actor? (y/n)\n" + Style.RESET_ALL).lower()
+            another_search = typingInput(Fore.GREEN + "\nWould you like to search for another actor? (y/n) " + Style.RESET_ALL).lower()
             if another_search == 'y':
                 # Clears terminal
                 clear_Screen()
