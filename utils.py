@@ -10,6 +10,7 @@ def typing_print(text):
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.015)
+print()
 
 
 def typing_input(text):
