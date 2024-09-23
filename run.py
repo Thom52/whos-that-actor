@@ -117,7 +117,7 @@ def display_filmography(filmography):
             print(f"{title} ({release_date}) - Character: {character}\n")
 
     except Exception as e:
-        print(f"Error while displaying filmography: {e}")
+        print(f"\nError while displaying filmography: {e}\n")
 
 
 
