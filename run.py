@@ -122,12 +122,23 @@ def display_filmography(filmography):
             print("No filmography found.")
             return
 
-        print("\n--- Filmography ---\n")
-        for movie in filmography:
-            title = movie.get('title')
-            release_date = movie.get('release_date', 'N/A')
-            character = movie.get('character', 'N/A')
-            print(f"{title} ({release_date}) - Character: {character}\n")
+        all_films = len(filmography)
+        begin = 0
+        while begin < all_films:
+            finish = min(begin + 10, all_films)
+            print("\n--- Filmography ---\n")
+            for movie in filmography[begin:finish]:
+                title = movie.get('title')
+                release_date = movie.get('release_date', 'N/A')
+                character = movie.get('character', 'N/A')
+                print(f"{title} ({release_date}) - Character: {character}\n")
+
+            begin += 10
+
+            if begin < all_films:
+                more = input("Would you like to see the next 10 films? (y/n)\n").lower()
+                if more != 'y':
+                    break
 
     except Exception as e:
         print(f"\nError while displaying filmography: {e}\n")
