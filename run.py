@@ -1,5 +1,4 @@
 import requests
-import webbrowser
 from dotenv import load_dotenv
 import os
 
@@ -59,16 +58,7 @@ def display_actor_info(actor):
     try:
         print("\n--- Actor Information ---\n")
         print(f"Name: {actor.get('name')}\n")
-
-        actor_url = f"https://www.themoviedb.org/person/{actor['id']}"
-        print(f"Profile: {actor_url}\n")
-
-        # Asks user if they want to open actor's profile in their browser
-        open_url = input("Would you like to open the actor's profile in your browser? (y/n)\n").lower()
-
-        # Webbrowser module executing off result of the code above
-        if open_url == "y":
-            webbrowser.open(actor_url)
+        print(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
 
     except KeyError as ke:
         print(f"\nMissing actor information: {ke}\n")
