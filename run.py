@@ -87,6 +87,32 @@ def get_actor_filmography(actor_id):
 
 
 
+def display_filmography(filmography):
+    """
+    Display the actor's filmography retrieved from TMDB
+    from the get_actor_filmography function.
+    """
+
+    try:
+        if not filmography:
+            print("No filmography found.")
+            return
+
+        print("\n--- Filmography ---\n")
+        for movie in filmography:
+            title = movie.get('title')
+            release_date = movie.get('release_date', 'N/A')
+            character = movie.get('character', 'N/A')
+            print(f"{title} ({release_date}) - Character: {character}\n")
+
+    except Exception as e:
+        print(f"Error while displaying filmography: {e}")
+
+
+
 actor_name = input("Enter the name of the actor: ")
 actor = search_actor(actor_name)
 display_actor_info(actor)
+actor_id = actor['id']
+filmography = get_actor_filmography(actor_id)
+display_filmography(filmography)
