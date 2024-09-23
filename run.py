@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import time
 import sys
+import colorama
 
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
