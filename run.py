@@ -6,7 +6,7 @@ load_dotenv()
 api_key = os.getenv("MY_API_KEY")
 
 if not api_key:
-    raise ValueError("API key not found. Make sure it's set in the environment.")
+    raise ValueError("\nAPI key not found. Make sure it's set in the environment.\n")
 
 BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -60,8 +60,11 @@ def display_actor_info(actor):
         print(f"Name: {actor.get('name')}")
         print(f"Known For: {', '.join([movie['title'] for movie in actor.get('known_for', [])])}")
         print(f"Profile: https://www.themoviedb.org/person/{actor['id']}\n")
+    
+    except KeyError as ke:
+        print(f"\nMissing actor information: {ke}\n")
     except Exception as e:
-        print(f"Error while displaying actor information: {e}")
+        print(f"\nError while displaying actor information: {e}\n")
 
 
 
